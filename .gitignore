@@ -1,0 +1,18 @@
+# Maven
+target/
+*.jar
+*.war
+*.ear
+
+# IDEs (VS Code, Eclipse, IntelliJ)
+.settings/
+.target/
+.classpath/
+.project/
+.idea/
+*.iml
+.vscode/
+
+# Logs e arquivos do SO
+*.log
+.DS_Store
