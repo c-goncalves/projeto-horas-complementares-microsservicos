@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://ifsp-mariadb:3306/activity_db
+    username: user_login
+    password: user_password
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+jwt:
+  secret: "S3cur3AndStr0ngS3cr3tK3yF0rIFSPHorasComplementar3s2026"
+  expiration: 86400000

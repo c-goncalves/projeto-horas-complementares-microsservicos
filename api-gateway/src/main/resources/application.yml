@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka/
+
+spring.cloud.gateway:
+  routes:
+    - id: activity-service-route
+      uri: lb://activity-service
+      predicates:
+        - Path=/v1/activities/**
+
+    - id: auth-service-route
+      uri: lb://auth-service
+      predicates:
+        - Path=/v1/auth/**

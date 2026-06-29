@@ -1,0 +1,150 @@
+version: '3.8'
+
+networks:
+  ifsp-network:
+    driver: bridge
+
+volumes:
+  maria_data:
+
+services:
+
+  mariadb:
+    image: mariadb:11.2
+    container_name: ifsp-mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: root_password
+      MARIADB_DATABASE: activity_db
+      MARIADB_USER: user_login
+      MARIADB_PASSWORD: user_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - maria_data:/var/lib/mysql
+      - ./infra/mariadb/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - ifsp-network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  discovery-server:
+    build:
+      context: ./discovery-server
+      dockerfile: ../Dockerfile
+    container_name: discovery-server
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8761/actuator/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "8761:8761"
+    networks:
+      - ifsp-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  config-server:
+    build:
+      context: ./config-server
+      dockerfile: ../Dockerfile
+    container_name: config-server
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888/actuator/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "8888:8888"
+    networks:
+      - ifsp-network
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: ../Dockerfile
+    container_name: api-gateway
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "8080:8080"
+    networks:
+      - ifsp-network
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+  
+  activity-service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: activity-service
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8082/actuator/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    ports:
+      - "8082:8082" 
+    networks:
+      - ifsp-network
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      mariadb:
+        condition: service_healthy
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: ../Dockerfile
+    container_name: auth-service
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8081/actuator/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    ports:
+      - "8081:8081"
+    networks:
+      - ifsp-network
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+      mariadb:
+        condition: service_healthy

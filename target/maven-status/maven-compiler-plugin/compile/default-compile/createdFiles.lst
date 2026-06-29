@@ -1,0 +1,10 @@
+br/edu/ifsp/horas/activity/domain/vo/CargaHoraria.class
+br/edu/ifsp/horas/activity/presentation/AtividadeController.class
+br/edu/ifsp/horas/activity/application/dto/AvaliacaoAtividadeDTO.class
+br/edu/ifsp/horas/activity/domain/vo/RaAluno.class
+br/edu/ifsp/horas/activity/application/dto/NovaAtividadeDTO.class
+br/edu/ifsp/horas/activity/ActivityServiceApplication.class
+br/edu/ifsp/horas/activity/domain/dao/AtividadeDAO.class
+br/edu/ifsp/horas/activity/application/AtividadeApplicationService.class
+br/edu/ifsp/horas/activity/domain/model/Atividade.class
+br/edu/ifsp/horas/activity/infrastructure/dao/AtividadeDAOImpl.class
