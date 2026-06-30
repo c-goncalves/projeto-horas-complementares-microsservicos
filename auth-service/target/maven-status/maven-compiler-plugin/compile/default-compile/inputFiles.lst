@@ -1,7 +1,0 @@
-/home/corawsl/api/projeto/ifsp-horas-complementares/auth-service/src/main/java/br/edu/ifsp/horas/auth/application/AuthApplicationService.java
-/home/corawsl/api/projeto/ifsp-horas-complementares/auth-service/src/main/java/br/edu/ifsp/horas/auth/infrastructure/SecurityConfig.java
-/home/corawsl/api/projeto/ifsp-horas-complementares/auth-service/src/main/java/br/edu/ifsp/horas/auth/infrastructure/JwtService.java
-/home/corawsl/api/projeto/ifsp-horas-complementares/auth-service/src/main/java/br/edu/ifsp/horas/auth/domain/UsuarioRepository.java
-/home/corawsl/api/projeto/ifsp-horas-complementares/auth-service/src/main/java/br/edu/ifsp/horas/auth/AuthServiceApplication.java
-/home/corawsl/api/projeto/ifsp-horas-complementares/auth-service/src/main/java/br/edu/ifsp/horas/auth/presentation/AuthController.java
-/home/corawsl/api/projeto/ifsp-horas-complementares/auth-service/src/main/java/br/edu/ifsp/horas/auth/domain/Usuario.java

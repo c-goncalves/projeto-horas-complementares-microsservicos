@@ -1,18 +1,33 @@
-# Maven
+# Maven / Java
 target/
+**/target/
+*.class
 *.jar
 *.war
 *.ear
+*.original
+!.mvn/wrapper/maven-wrapper.jar
+
+# Maven wrapper/runtime
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.properties
 
 # IDEs (VS Code, Eclipse, IntelliJ)
 .settings/
-.target/
 .classpath/
 .project/
 .idea/
 *.iml
 .vscode/
 
+# Docker/local environment
+.env
+.env.*
+!.env.example
+docker-compose.override.yml
+
 # Logs e arquivos do SO
 *.log
+logs/
 .DS_Store
+Thumbs.db

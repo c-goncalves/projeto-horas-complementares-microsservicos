@@ -11,3 +11,6 @@ eureka:
       defaultZone: http://discovery-server:8761/eureka/
   instance:
     preferIpAddress: true
+
+jwt:
+  secret: "S3cur3AndStr0ngS3cr3tK3yF0rIFSPHorasComplementar3s2026"

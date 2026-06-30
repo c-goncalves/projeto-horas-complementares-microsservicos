@@ -1,7 +1,0 @@
-br/edu/ifsp/horas/auth/presentation/AuthController.class
-br/edu/ifsp/horas/auth/infrastructure/JwtService.class
-br/edu/ifsp/horas/auth/domain/UsuarioRepository.class
-br/edu/ifsp/horas/auth/domain/Usuario.class
-br/edu/ifsp/horas/auth/infrastructure/SecurityConfig.class
-br/edu/ifsp/horas/auth/AuthServiceApplication.class
-br/edu/ifsp/horas/auth/application/AuthApplicationService.class

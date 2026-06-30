@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: activity-service-route
+          uri: lb://activity-service
+          predicates:
+            - Path=/v1/activities/**
+
+        - id: auth-service-route
+          uri: lb://auth-service
+          predicates:
+            - Path=/v1/auth/**
+
+        - id: auth-docs
+          uri: lb://auth-service
+          predicates:
+            - Path=/v3/api-docs/auth-service,/v3/api-docs/auth-service/**
+          filters:
+            - RewritePath=/v3/api-docs/auth-service(?<segment>/?.*), /v3/api-docs$\{segment}
+
+        - id: activity-docs
+          uri: lb://activity-service
+          predicates:
+            - Path=/v3/api-docs/activity-service,/v3/api-docs/activity-service/**
+          filters:
+            - RewritePath=/v3/api-docs/activity-service(?<segment>/?.*), /v3/api-docs$\{segment}
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Autenticação (Auth)
+        url: /v3/api-docs/auth-service
+      - name: Gestão de Atividades Complementares
+        url: /v3/api-docs/activity-service
