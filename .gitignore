@@ -9,6 +9,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 
 # Maven wrapper/runtime
+.m2/
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.properties
 
